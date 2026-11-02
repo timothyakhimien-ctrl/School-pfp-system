@@ -2,12 +2,13 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import { GraduationCap, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Sparkles } from 'lucide-react';
+import { GraduationCap, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Sparkles, Eye, EyeOff } from 'lucide-react';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useContext(AuthContext);
@@ -207,14 +208,30 @@ const Register = () => {
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                 <Lock size={18} style={{ position: 'absolute', left: '12px', color: '#94a3b8' }} />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
                   className="form-input"
-                  style={{ paddingLeft: '38px' }}
+                  style={{ paddingLeft: '38px', paddingRight: '40px' }}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute',
+                    right: '12px',
+                    background: 'none',
+                    border: 'none',
+                    color: '#94a3b8',
+                    cursor: 'pointer',
+                    display: 'flex',
+                  }}
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 
@@ -223,7 +240,7 @@ const Register = () => {
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                 <Lock size={18} style={{ position: 'absolute', left: '12px', color: '#94a3b8' }} />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"

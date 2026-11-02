@@ -2,11 +2,12 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import { GraduationCap, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Sparkles, BookOpen } from 'lucide-react';
+import { GraduationCap, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Sparkles, Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const Login = () => {
 
   const handleDemoFill = () => {
     setEmail('admin_test@school.com');
-    setPassword('password123');
+    setPassword('newpassword123');
   };
 
   return (
@@ -39,7 +40,7 @@ const Login = () => {
       width: '100vw',
       background: '#f8fafc',
     }}>
-      {/* Left Prestige Academic Showcase */}
+      {/* Left Academic Showcase */}
       <div style={{
         flex: '1.15',
         background: 'linear-gradient(145deg, #042f2e 0%, #064e3b 50%, #0f766e 100%)',
@@ -51,7 +52,6 @@ const Login = () => {
         position: 'relative',
         overflow: 'hidden',
       }} className="hide-on-mobile">
-        {/* Subtle gold/mint luxury ambient accents */}
         <div style={{
           position: 'absolute',
           top: '-10%',
@@ -125,7 +125,7 @@ const Login = () => {
               'Universal school creation: configure any institution name instantly',
               'Automated letter grading (A through F) with instant calculations',
               'Real-time class distribution and longitudinal performance charts',
-              'Mobile & multi-device ready across local and remote networks',
+              'Secure password recovery with 6-digit email security codes',
             ].map((feature, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <CheckCircle2 size={18} color="#2dd4bf" />
@@ -135,7 +135,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Security badge */}
         <div style={{
           background: 'rgba(255, 255, 255, 0.08)',
           borderRadius: '12px',
@@ -148,7 +147,7 @@ const Login = () => {
         }}>
           <ShieldCheck size={24} color="#34d399" />
           <span style={{ fontSize: '13px', color: '#ccfbf1' }}>
-            Session Secured &bull; Multi-Tenant Architecture &bull; Instant API Ready
+            Session Secured &bull; Multi-Tenant Architecture &bull; Production Ready
           </span>
         </div>
       </div>
@@ -207,19 +206,40 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="form-group" style={{ marginBottom: '22px' }}>
-              <label className="form-label">Password</label>
+            <div className="form-group" style={{ marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <label className="form-label" style={{ margin: 0 }}>Password</label>
+                <Link to="/forgot-password" style={{ fontSize: '12px', fontWeight: '700', color: '#0f766e' }}>
+                  Forgot Password?
+                </Link>
+              </div>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                 <Lock size={18} style={{ position: 'absolute', left: '12px', color: '#94a3b8' }} />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
                   className="form-input"
-                  style={{ paddingLeft: '38px' }}
+                  style={{ paddingLeft: '38px', paddingRight: '40px' }}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: 'absolute',
+                    right: '12px',
+                    background: 'none',
+                    border: 'none',
+                    color: '#94a3b8',
+                    cursor: 'pointer',
+                    display: 'flex',
+                  }}
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 

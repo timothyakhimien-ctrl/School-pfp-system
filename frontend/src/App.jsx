@@ -11,6 +11,7 @@ import Results from './pages/Results';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import { AuthContext } from './contexts/AuthContext';
 
 const PrivateRoute = ({ children }) => {
@@ -25,11 +26,11 @@ const PrivateRoute = ({ children }) => {
         height: '100vh',
         width: '100vw',
         background: '#f8fafc',
-        color: '#4f46e5',
+        color: '#0f766e',
         fontSize: '16px',
-        fontWeight: '600',
+        fontWeight: '700',
       }}>
-        Loading EduTrack SPMS...
+        Loading EduTrack Academic Suite...
       </div>
     );
   }
@@ -42,6 +43,7 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route
         element={
           <PrivateRoute>
@@ -57,7 +59,6 @@ function App() {
         <Route path="results" element={<Results />} />
         <Route path="settings" element={<Settings />} />
       </Route>
-      {/* Catch-all redirect */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

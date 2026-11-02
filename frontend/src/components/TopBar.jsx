@@ -1,7 +1,7 @@
 // src/components/TopBar.jsx
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
-import { Building2, Plus, Sparkles, Smartphone, Check } from 'lucide-react';
+import { Building2, Plus, Sparkles, Check, ChevronDown } from 'lucide-react';
 
 const TopBar = () => {
   const { user, schools, currentSchool, selectSchool, createSchool } = useContext(AuthContext);
@@ -24,8 +24,6 @@ const TopBar = () => {
     }
   };
 
-  const localIp = window.location.hostname;
-
   return (
     <>
       <header style={{
@@ -39,7 +37,7 @@ const TopBar = () => {
         flexShrink: 0,
         boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.04)',
       }}>
-        {/* Left: System Status & Mobile Access Tip */}
+        {/* Left: Active Institutional Portal Indicator */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{
             display: 'flex',
@@ -47,9 +45,9 @@ const TopBar = () => {
             gap: '8px',
             background: '#f0fdfa',
             color: '#0f766e',
-            padding: '5px 12px',
+            padding: '6px 14px',
             borderRadius: '9999px',
-            fontSize: '12px',
+            fontSize: '13px',
             fontWeight: '700',
             border: '1px solid #99f6e4',
           }}>
@@ -60,19 +58,12 @@ const TopBar = () => {
               backgroundColor: '#059669',
               boxShadow: '0 0 0 2px #d1fae5',
             }} />
-            <span>FastAPI Live: http://{localIp}:8000</span>
+            <span>EduTrack Portal Active</span>
           </div>
 
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontSize: '12px',
-            color: '#64748b',
-          }} className="hide-on-mobile">
-            <Smartphone size={14} color="#0f766e" />
-            <span>Mobile/Network Ready: <strong>http://192.168.214.124:5173</strong></span>
-          </div>
+          <span style={{ fontSize: '13px', color: '#64748b' }} className="hide-on-mobile">
+            {currentSchool ? `${currentSchool.name}` : 'No school selected'}
+          </span>
         </div>
 
         {/* Right: School Selector & Actions */}
@@ -104,7 +95,7 @@ const TopBar = () => {
               {schools.length === 0 && <option value="">No Schools Registered</option>}
               {schools.map((school) => (
                 <option key={school.id} value={school.id}>
-                  {school.name} (ID: #{school.id})
+                  {school.name}
                 </option>
               ))}
               <option value="new">+ Register New School...</option>
